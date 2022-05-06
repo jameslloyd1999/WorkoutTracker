@@ -1,0 +1,12 @@
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\bin\Debug\dbWorkoutTracker.accdb
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\bin\Debug\WorkoutTracker.exe.config
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\bin\Debug\WorkoutTracker.exe
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\bin\Debug\WorkoutTracker.pdb
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.csproj.AssemblyReference.cache
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.csproj.SuggestedBindingRedirects.cache
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.Form1.resources
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.Properties.Resources.resources
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.csproj.GenerateResource.cache
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.csproj.CoreCompileInputs.cache
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.exe
+C:\Users\TheJa\Documents\GitHub\WorkoutTracker\WorkoutTracker\WorkoutTracker\obj\Debug\WorkoutTracker.pdb
