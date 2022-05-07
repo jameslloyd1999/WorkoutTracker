@@ -27,23 +27,32 @@ namespace WorkoutTracker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dbWorkoutTrackerDataSet.tblLift' table. You can move, or remove it, as needed.
-            this.tblLiftTableAdapter.Fill(this.dbWorkoutTrackerDataSet.tblLift);
-            // TODO: This line of code loads data into the 'dbWorkoutTrackerDataSet.tblLiftSet' table. You can move, or remove it, as needed.
-            this.tblLiftSetTableAdapter.Fill(this.dbWorkoutTrackerDataSet.tblLiftSet);
-            // TODO: This line of code loads data into the 'dbWorkoutTrackerDataSet.tblWorkout' table. You can move, or remove it, as needed.
-            this.tblWorkoutTableAdapter.Fill(this.dbWorkoutTrackerDataSet.tblWorkout);
-
             int workoutID = getLatestWorkout();
-            displayData(workoutID);
+
+            //will display the data if the workoutID was not default and will make everything invisible if it was
+            if(workoutID != 0)
+            {
+                displayData(workoutID);
+            }
+            else
+            {
+                lblSubTitle.Visible = false;
+                lblWorkoutName.Visible = false;
+                lblWorkoutDate.Visible = false;
+                lstViewWorkout.Visible = false;
+            }
+            
         }
 
         private int getLatestWorkout()
         {
+            //function to get the workoutID of the most recent workout
+            //default values if there are no workouts
             int workoutID = 0;
             string workoutName = "";
             DateTime workoutDate = DateTime.Now;
 
+            //sql function returns all tblWorkout records in date order. The last record in the loop will be the most recent one
             try
             {
                 foreach (DataRow row in this.tblWorkoutTableAdapter.GetDataOrderByDate().Rows)
@@ -58,6 +67,7 @@ namespace WorkoutTracker
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
+            //displays the name and date of the most recent workout
             lblWorkoutName.Text = workoutName;
             lblWorkoutDate.Text = workoutDate.ToShortDateString();
 
@@ -66,8 +76,10 @@ namespace WorkoutTracker
 
         private void displayData(int workoutID)
         {
-            //try to get it so that it doesn't display the same lift name multiple times
+            //function to display the lifts done in the most recent workout in list view
             lstViewWorkout.Items.Clear();
+
+            //sql returns the records in tblLiftSet with the specific workoutID and the name of the lift
             try
             {
                 foreach (DataRow row in this.tblLiftSetTableAdapter.GetDataForSpecificWorkout(workoutID).Rows)
@@ -77,8 +89,8 @@ namespace WorkoutTracker
                     string liftSets = row.ItemArray[5].ToString();
                     string liftReps = row.ItemArray[6].ToString();
 
+                    //whether or not the weight is in kg or lbs is stored as a boolean so "kg" or "lbs" is added to the end of the weight string
                     bool liftKG = Convert.ToBoolean(row.ItemArray[4]);
-
                     if(liftKG == true)
                     {
                         liftWeight = liftWeight + "kg";
@@ -88,13 +100,30 @@ namespace WorkoutTracker
                         liftWeight = liftWeight + "lbs";
                     }
 
+                    //adds lift details to the list view
                     lstViewWorkout.Items.Add(liftName);
-                    int num = lstViewWorkout.Items.Count - 1;
-                    lstViewWorkout.Items[num].SubItems.Add(liftWeight);
-                    lstViewWorkout.Items[num].SubItems.Add(liftSets);
-                    lstViewWorkout.Items[num].SubItems.Add(liftReps);
+                    int n = lstViewWorkout.Items.Count - 1;
+                    lstViewWorkout.Items[n].SubItems.Add(liftWeight);
+                    lstViewWorkout.Items[n].SubItems.Add(liftSets);
+                    lstViewWorkout.Items[n].SubItems.Add(liftReps);
 
                 }
+
+                //removes where the liftName is written multiple times next to eachother in the list view
+                int m = lstViewWorkout.Items.Count;
+                string currentLiftName = "";
+                for(int i = 0; i<m; i++)
+                {
+                    if(lstViewWorkout.Items[i].Text == currentLiftName)
+                    {
+                        lstViewWorkout.Items[i].Text = " ";
+                    }
+                    else
+                    {
+                        currentLiftName = lstViewWorkout.Items[i].Text;
+                    }
+                }
+
             }
             catch (System.Exception ex)
             {

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.lblSubTitle = new System.Windows.Forms.Label();
             this.lblWorkoutName = new System.Windows.Forms.Label();
             this.lblWorkoutDate = new System.Windows.Forms.Label();
@@ -46,49 +45,45 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnNewWorkout = new System.Windows.Forms.Button();
+            this.btnViewWorkouts = new System.Windows.Forms.Button();
+            this.btnLiftList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(12, 9);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(214, 32);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "WorkoutTracker";
-            // 
             // lblSubTitle
             // 
             this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubTitle.Location = new System.Drawing.Point(13, 94);
+            this.lblSubTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubTitle.Location = new System.Drawing.Point(13, 9);
+            this.lblSubTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(138, 25);
+            this.lblSubTitle.Size = new System.Drawing.Size(198, 32);
             this.lblSubTitle.TabIndex = 1;
             this.lblSubTitle.Text = "Latest workout";
             // 
             // lblWorkoutName
             // 
             this.lblWorkoutName.AutoSize = true;
-            this.lblWorkoutName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWorkoutName.Location = new System.Drawing.Point(14, 146);
+            this.lblWorkoutName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkoutName.Location = new System.Drawing.Point(14, 67);
+            this.lblWorkoutName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWorkoutName.Name = "lblWorkoutName";
-            this.lblWorkoutName.Size = new System.Drawing.Size(111, 20);
+            this.lblWorkoutName.Size = new System.Drawing.Size(132, 25);
             this.lblWorkoutName.TabIndex = 2;
             this.lblWorkoutName.Text = "workoutName";
             // 
             // lblWorkoutDate
             // 
             this.lblWorkoutDate.AutoSize = true;
-            this.lblWorkoutDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWorkoutDate.Location = new System.Drawing.Point(14, 181);
+            this.lblWorkoutDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkoutDate.Location = new System.Drawing.Point(14, 111);
+            this.lblWorkoutDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWorkoutDate.Name = "lblWorkoutDate";
-            this.lblWorkoutDate.Size = new System.Drawing.Size(103, 20);
+            this.lblWorkoutDate.Size = new System.Drawing.Size(121, 25);
             this.lblWorkoutDate.TabIndex = 3;
             this.lblWorkoutDate.Text = "workoutDate";
             // 
@@ -143,10 +138,14 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
+            this.lstViewWorkout.FullRowSelect = true;
+            this.lstViewWorkout.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstViewWorkout.HideSelection = false;
-            this.lstViewWorkout.Location = new System.Drawing.Point(339, 198);
+            this.lstViewWorkout.Location = new System.Drawing.Point(227, 67);
+            this.lstViewWorkout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lstViewWorkout.MultiSelect = false;
             this.lstViewWorkout.Name = "lstViewWorkout";
-            this.lstViewWorkout.Size = new System.Drawing.Size(461, 242);
+            this.lstViewWorkout.Size = new System.Drawing.Size(390, 390);
             this.lstViewWorkout.TabIndex = 4;
             this.lstViewWorkout.UseCompatibleStateImageBehavior = false;
             this.lstViewWorkout.View = System.Windows.Forms.View.Details;
@@ -159,6 +158,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Weight";
+            this.columnHeader2.Width = 90;
             // 
             // columnHeader3
             // 
@@ -168,16 +168,47 @@
             // 
             this.columnHeader4.Text = "Reps";
             // 
+            // btnNewWorkout
+            // 
+            this.btnNewWorkout.Location = new System.Drawing.Point(12, 325);
+            this.btnNewWorkout.Name = "btnNewWorkout";
+            this.btnNewWorkout.Size = new System.Drawing.Size(160, 40);
+            this.btnNewWorkout.TabIndex = 5;
+            this.btnNewWorkout.Text = "New Workout";
+            this.btnNewWorkout.UseVisualStyleBackColor = true;
+            // 
+            // btnViewWorkouts
+            // 
+            this.btnViewWorkouts.Location = new System.Drawing.Point(12, 371);
+            this.btnViewWorkouts.Name = "btnViewWorkouts";
+            this.btnViewWorkouts.Size = new System.Drawing.Size(160, 40);
+            this.btnViewWorkouts.TabIndex = 6;
+            this.btnViewWorkouts.Text = "View Workouts";
+            this.btnViewWorkouts.UseVisualStyleBackColor = true;
+            // 
+            // btnLiftList
+            // 
+            this.btnLiftList.Location = new System.Drawing.Point(12, 417);
+            this.btnLiftList.Name = "btnLiftList";
+            this.btnLiftList.Size = new System.Drawing.Size(160, 40);
+            this.btnLiftList.TabIndex = 7;
+            this.btnLiftList.Text = "Lift List";
+            this.btnLiftList.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 592);
+            this.ClientSize = new System.Drawing.Size(645, 537);
+            this.Controls.Add(this.btnLiftList);
+            this.Controls.Add(this.btnViewWorkouts);
+            this.Controls.Add(this.btnNewWorkout);
             this.Controls.Add(this.lstViewWorkout);
             this.Controls.Add(this.lblWorkoutDate);
             this.Controls.Add(this.lblWorkoutName);
             this.Controls.Add(this.lblSubTitle);
-            this.Controls.Add(this.lblTitle);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "WorkoutTracker";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -200,7 +231,6 @@
         private dbWorkoutTrackerDataSetTableAdapters.tblLiftSetTableAdapter tblLiftSetTableAdapter;
         private System.Windows.Forms.BindingSource tblLiftBindingSource;
         private dbWorkoutTrackerDataSetTableAdapters.tblLiftTableAdapter tblLiftTableAdapter;
-        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblSubTitle;
         private System.Windows.Forms.Label lblWorkoutName;
         private System.Windows.Forms.Label lblWorkoutDate;
@@ -209,6 +239,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Button btnNewWorkout;
+        private System.Windows.Forms.Button btnViewWorkouts;
+        private System.Windows.Forms.Button btnLiftList;
     }
 }
 
