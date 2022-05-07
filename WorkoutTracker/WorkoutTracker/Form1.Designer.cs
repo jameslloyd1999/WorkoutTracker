@@ -29,18 +29,68 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.lblSubTitle = new System.Windows.Forms.Label();
+            this.lblWorkoutName = new System.Windows.Forms.Label();
+            this.lblWorkoutDate = new System.Windows.Forms.Label();
             this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblWorkoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tblWorkoutTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblWorkoutTableAdapter();
             this.tableAdapterManager = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.TableAdapterManager();
-            this.tblWorkoutDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tblLiftSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tblLiftSetTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblLiftSetTableAdapter();
+            this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tblLiftTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblLiftTableAdapter();
+            this.lstViewWorkout = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(12, 9);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(214, 32);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "WorkoutTracker";
+            // 
+            // lblSubTitle
+            // 
+            this.lblSubTitle.AutoSize = true;
+            this.lblSubTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubTitle.Location = new System.Drawing.Point(13, 94);
+            this.lblSubTitle.Name = "lblSubTitle";
+            this.lblSubTitle.Size = new System.Drawing.Size(138, 25);
+            this.lblSubTitle.TabIndex = 1;
+            this.lblSubTitle.Text = "Latest workout";
+            // 
+            // lblWorkoutName
+            // 
+            this.lblWorkoutName.AutoSize = true;
+            this.lblWorkoutName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkoutName.Location = new System.Drawing.Point(14, 146);
+            this.lblWorkoutName.Name = "lblWorkoutName";
+            this.lblWorkoutName.Size = new System.Drawing.Size(111, 20);
+            this.lblWorkoutName.TabIndex = 2;
+            this.lblWorkoutName.Text = "workoutName";
+            // 
+            // lblWorkoutDate
+            // 
+            this.lblWorkoutDate.AutoSize = true;
+            this.lblWorkoutDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWorkoutDate.Location = new System.Drawing.Point(14, 181);
+            this.lblWorkoutDate.Name = "lblWorkoutDate";
+            this.lblWorkoutDate.Size = new System.Drawing.Size(103, 20);
+            this.lblWorkoutDate.TabIndex = 3;
+            this.lblWorkoutDate.Text = "workoutDate";
             // 
             // dbWorkoutTrackerDataSet
             // 
@@ -68,59 +118,75 @@
             this.tableAdapterManager.tblWorkoutTableAdapter = this.tblWorkoutTableAdapter;
             this.tableAdapterManager.UpdateOrder = WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // tblWorkoutDataGridView
+            // tblLiftSetBindingSource
             // 
-            this.tblWorkoutDataGridView.AutoGenerateColumns = false;
-            this.tblWorkoutDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tblWorkoutDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
-            this.tblWorkoutDataGridView.DataSource = this.tblWorkoutBindingSource;
-            this.tblWorkoutDataGridView.Location = new System.Drawing.Point(134, 91);
-            this.tblWorkoutDataGridView.Name = "tblWorkoutDataGridView";
-            this.tblWorkoutDataGridView.RowHeadersWidth = 51;
-            this.tblWorkoutDataGridView.RowTemplate.Height = 24;
-            this.tblWorkoutDataGridView.Size = new System.Drawing.Size(464, 274);
-            this.tblWorkoutDataGridView.TabIndex = 1;
+            this.tblLiftSetBindingSource.DataMember = "tblLiftSet";
+            this.tblLiftSetBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
             // 
-            // dataGridViewTextBoxColumn1
+            // tblLiftSetTableAdapter
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "workoutID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "workoutID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 125;
+            this.tblLiftSetTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // tblLiftBindingSource
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "workoutName";
-            this.dataGridViewTextBoxColumn2.HeaderText = "workoutName";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 125;
+            this.tblLiftBindingSource.DataMember = "tblLift";
+            this.tblLiftBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
             // 
-            // dataGridViewTextBoxColumn3
+            // tblLiftTableAdapter
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "workoutDate";
-            this.dataGridViewTextBoxColumn3.HeaderText = "workoutDate";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 125;
+            this.tblLiftTableAdapter.ClearBeforeFill = true;
+            // 
+            // lstViewWorkout
+            // 
+            this.lstViewWorkout.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.lstViewWorkout.HideSelection = false;
+            this.lstViewWorkout.Location = new System.Drawing.Point(339, 198);
+            this.lstViewWorkout.Name = "lstViewWorkout";
+            this.lstViewWorkout.Size = new System.Drawing.Size(461, 242);
+            this.lstViewWorkout.TabIndex = 4;
+            this.lstViewWorkout.UseCompatibleStateImageBehavior = false;
+            this.lstViewWorkout.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Lift";
+            this.columnHeader1.Width = 150;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Weight";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Sets";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Reps";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tblWorkoutDataGridView);
+            this.ClientSize = new System.Drawing.Size(1061, 592);
+            this.Controls.Add(this.lstViewWorkout);
+            this.Controls.Add(this.lblWorkoutDate);
+            this.Controls.Add(this.lblWorkoutName);
+            this.Controls.Add(this.lblSubTitle);
+            this.Controls.Add(this.lblTitle);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "WorkoutTracker";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -130,10 +196,19 @@
         private System.Windows.Forms.BindingSource tblWorkoutBindingSource;
         private dbWorkoutTrackerDataSetTableAdapters.tblWorkoutTableAdapter tblWorkoutTableAdapter;
         private dbWorkoutTrackerDataSetTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.DataGridView tblWorkoutDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.BindingSource tblLiftSetBindingSource;
+        private dbWorkoutTrackerDataSetTableAdapters.tblLiftSetTableAdapter tblLiftSetTableAdapter;
+        private System.Windows.Forms.BindingSource tblLiftBindingSource;
+        private dbWorkoutTrackerDataSetTableAdapters.tblLiftTableAdapter tblLiftTableAdapter;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblSubTitle;
+        private System.Windows.Forms.Label lblWorkoutName;
+        private System.Windows.Forms.Label lblWorkoutDate;
+        private System.Windows.Forms.ListView lstViewWorkout;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
 

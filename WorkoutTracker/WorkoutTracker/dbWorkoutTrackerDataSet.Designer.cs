@@ -5874,11 +5874,19 @@ namespace WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[2];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT liftSetID, workoutID, liftID, weight, kg, sets, reps FROM tblLiftSet";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = @"SELECT tblLiftSet.liftSetID, tblLiftSet.workoutID, tblLiftSet.liftID, tblLiftSet.weight, tblLiftSet.kg, tblLiftSet.sets, tblLiftSet.reps, tblLift.liftName
+FROM     (tblLiftSet INNER JOIN
+                  tblLift ON tblLiftSet.liftID = tblLift.liftID)
+WHERE  (tblLiftSet.workoutID = ?)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("workoutID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "workoutID", global::System.Data.DataRowVersion.Current, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5900,6 +5908,23 @@ namespace WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual dbWorkoutTrackerDataSet.tblLiftSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            dbWorkoutTrackerDataSet.tblLiftSetDataTable dataTable = new dbWorkoutTrackerDataSet.tblLiftSetDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual dbWorkoutTrackerDataSet.tblLiftSetDataTable GetDataForSpecificWorkout(global::System.Nullable<int> workoutID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((workoutID.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((int)(workoutID.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
             dbWorkoutTrackerDataSet.tblLiftSetDataTable dataTable = new dbWorkoutTrackerDataSet.tblLiftSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -6313,11 +6338,16 @@ namespace WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[2];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT workoutID, workoutName, workoutDate FROM tblWorkout";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT workoutID, workoutName, workoutDate\r\nFROM     tblWorkout\r\nORDER BY workout" +
+                "Date";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6339,6 +6369,17 @@ namespace WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual dbWorkoutTrackerDataSet.tblWorkoutDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            dbWorkoutTrackerDataSet.tblWorkoutDataTable dataTable = new dbWorkoutTrackerDataSet.tblWorkoutDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual dbWorkoutTrackerDataSet.tblWorkoutDataTable GetDataOrderByDate() {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             dbWorkoutTrackerDataSet.tblWorkoutDataTable dataTable = new dbWorkoutTrackerDataSet.tblWorkoutDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

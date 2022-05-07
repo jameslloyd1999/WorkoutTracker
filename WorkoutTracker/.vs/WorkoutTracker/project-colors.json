@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "4ebd9632-9389-4659-9aef-b4ef06eca03f": {
+      "ProjectGuid": "4ebd9632-9389-4659-9aef-b4ef06eca03f",
+      "DisplayName": "WorkoutTracker",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
