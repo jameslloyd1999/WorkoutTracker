@@ -5874,19 +5874,27 @@ namespace WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[2];
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[3];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT liftSetID, workoutID, liftID, weight, kg, sets, reps FROM tblLiftSet";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT tblLiftSet.liftSetID, tblLiftSet.workoutID, tblLiftSet.liftID, tblLiftSet.weight, tblLiftSet.kg, tblLiftSet.sets, tblLiftSet.reps, tblLift.liftName
+            this._commandCollection[1].CommandText = @"SELECT tblLiftSet.liftSetID, tblLiftSet.workoutID, tblLiftSet.liftID, tblLiftSet.weight, tblLiftSet.kg, tblLiftSet.sets, tblLiftSet.reps, tblWorkout.workoutName, tblWorkout.workoutDate
+FROM     (tblLiftSet INNER JOIN
+                  tblWorkout ON tblLiftSet.workoutID = tblWorkout.workoutID)
+WHERE  (tblLiftSet.liftID = ?)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("liftID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "liftID", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[2] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = @"SELECT tblLiftSet.liftSetID, tblLiftSet.workoutID, tblLiftSet.liftID, tblLiftSet.weight, tblLiftSet.kg, tblLiftSet.sets, tblLiftSet.reps, tblLift.liftName
 FROM     (tblLiftSet INNER JOIN
                   tblLift ON tblLiftSet.liftID = tblLift.liftID)
 WHERE  (tblLiftSet.workoutID = ?)";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("workoutID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "workoutID", global::System.Data.DataRowVersion.Current, false, null));
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.OleDb.OleDbParameter("workoutID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "workoutID", global::System.Data.DataRowVersion.Current, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5917,8 +5925,25 @@ WHERE  (tblLiftSet.workoutID = ?)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual dbWorkoutTrackerDataSet.tblLiftSetDataTable GetDataForSpecificWorkout(global::System.Nullable<int> workoutID) {
+        public virtual dbWorkoutTrackerDataSet.tblLiftSetDataTable GetDataForSpecificLift(global::System.Nullable<int> liftID) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((liftID.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((int)(liftID.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            dbWorkoutTrackerDataSet.tblLiftSetDataTable dataTable = new dbWorkoutTrackerDataSet.tblLiftSetDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual dbWorkoutTrackerDataSet.tblLiftSetDataTable GetDataForSpecificWorkout(global::System.Nullable<int> workoutID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             if ((workoutID.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((int)(workoutID.Value));
             }
