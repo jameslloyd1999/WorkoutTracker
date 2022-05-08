@@ -27,57 +27,47 @@ namespace WorkoutTracker
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            int workoutID = getLatestWorkout();
+            displayWorkouts();
+            lblWorkoutName.Visible = false;
+            lblWorkoutDate.Visible = false;
+            lstViewLiftSets.Visible = false;
 
-            //will display the data if the workoutID was not default and will make everything invisible if it was
-            if(workoutID != 0)
-            {
-                displayData(workoutID);
-            }
-            else
-            {
-                lblSubTitle.Visible = false;
-                lblWorkoutName.Visible = false;
-                lblWorkoutDate.Visible = false;
-                lstViewWorkout.Visible = false;
-            }
-            
+            btnViewWorkouts.BackColor = Color.White;
+            btnAddWorkout.BackColor = Color.White;
+            btnLiftsList.BackColor = Color.White;
         }
 
-        private int getLatestWorkout()
+        private void displayWorkouts()
         {
-            //function to get the workoutID of the most recent workout
-            //default values if there are no workouts
-            int workoutID = 0;
-            string workoutName = "";
-            DateTime workoutDate = DateTime.Now;
+            //function to display all the workout in the list view
+            lstViewWorkouts.Items.Clear();
 
-            //sql function returns all tblWorkout records in date order. The last record in the loop will be the most recent one
+            //sql returns the records in tblWorkout in descending date order
             try
             {
-                foreach (DataRow row in this.tblWorkoutTableAdapter.GetDataOrderByDate().Rows)
+                foreach (DataRow row in this.tblWorkoutTableAdapter.GetDataOrderByDateDesc().Rows)
                 {
-                    workoutID = Convert.ToInt32(row.ItemArray[0]);
-                    workoutName = row.ItemArray[1].ToString();
-                    workoutDate = Convert.ToDateTime(row.ItemArray[2]);
+                    int workoutID = Convert.ToInt32(row.ItemArray[0]);
+                    string workoutName = row.ItemArray[1].ToString();
+                    DateTime workoutDate = Convert.ToDateTime(row.ItemArray[2]);
+
+                    //adds workout details to the list view. WorkoutID will be invisible as there's no 3rd column
+                    lstViewWorkouts.Items.Add(workoutName);
+                    int n = lstViewWorkouts.Items.Count-1;
+                    lstViewWorkouts.Items[n].SubItems.Add(workoutDate.ToShortDateString());
+                    lstViewWorkouts.Items[n].SubItems.Add(workoutID.ToString());
                 }
             }
             catch (System.Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
-
-            //displays the name and date of the most recent workout
-            lblWorkoutName.Text = workoutName;
-            lblWorkoutDate.Text = workoutDate.ToShortDateString();
-
-            return workoutID;
         }
 
-        private void displayData(int workoutID)
+        private void displayLiftSets(int workoutID)
         {
             //function to display the lifts done in the most recent workout in list view
-            lstViewWorkout.Items.Clear();
+            lstViewLiftSets.Items.Clear();
 
             //sql returns the records in tblLiftSet with the specific workoutID and the name of the lift
             try
@@ -101,26 +91,26 @@ namespace WorkoutTracker
                     }
 
                     //adds lift details to the list view
-                    lstViewWorkout.Items.Add(liftName);
-                    int n = lstViewWorkout.Items.Count - 1;
-                    lstViewWorkout.Items[n].SubItems.Add(liftWeight);
-                    lstViewWorkout.Items[n].SubItems.Add(liftSets);
-                    lstViewWorkout.Items[n].SubItems.Add(liftReps);
+                    lstViewLiftSets.Items.Add(liftName);
+                    int n = lstViewLiftSets.Items.Count - 1;
+                    lstViewLiftSets.Items[n].SubItems.Add(liftWeight);
+                    lstViewLiftSets.Items[n].SubItems.Add(liftSets);
+                    lstViewLiftSets.Items[n].SubItems.Add(liftReps);
 
                 }
 
                 //removes where the liftName is written multiple times next to eachother in the list view
-                int m = lstViewWorkout.Items.Count;
+                int m = lstViewLiftSets.Items.Count;
                 string currentLiftName = "";
                 for(int i = 0; i<m; i++)
                 {
-                    if(lstViewWorkout.Items[i].Text == currentLiftName)
+                    if(lstViewLiftSets.Items[i].Text == currentLiftName)
                     {
-                        lstViewWorkout.Items[i].Text = " ";
+                        lstViewLiftSets.Items[i].Text = " ";
                     }
                     else
                     {
-                        currentLiftName = lstViewWorkout.Items[i].Text;
+                        currentLiftName = lstViewLiftSets.Items[i].Text;
                     }
                 }
 
@@ -131,5 +121,48 @@ namespace WorkoutTracker
             }
         }
 
+        private void btnViewWorkouts_Click(object sender, EventArgs e)
+        {
+            lblSubTitle.Text = btnViewWorkouts.Text;
+            btnViewWorkouts.Enabled = false;
+            btnAddWorkout.Enabled = true;
+            btnLiftsList.Enabled = true;
+        }
+
+        private void btnAddWorkout_Click(object sender, EventArgs e)
+        {
+            lblSubTitle.Text = btnAddWorkout.Text;
+            btnViewWorkouts.Enabled = true;
+            btnAddWorkout.Enabled = false;
+            btnLiftsList.Enabled = true;
+        }
+
+        private void btnLiftsList_Click(object sender, EventArgs e)
+        {
+            lblSubTitle.Text = btnLiftsList.Text;
+            btnViewWorkouts.Enabled = true;
+            btnAddWorkout.Enabled = true;
+            btnLiftsList.Enabled = false;
+        }
+
+        private void lstViewWorkouts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstViewWorkouts.SelectedItems.Count != 0)
+            {
+                lblWorkoutName.Text = lstViewWorkouts.SelectedItems[0].SubItems[0].Text;
+                lblWorkoutDate.Text = lstViewWorkouts.SelectedItems[0].SubItems[1].Text;
+                int workoutID = Convert.ToInt32(lstViewWorkouts.SelectedItems[0].SubItems[2].Text);
+                displayLiftSets(workoutID);
+                lblWorkoutName.Visible = true;
+                lblWorkoutDate.Visible = true;
+                lstViewLiftSets.Visible = true;
+            }
+            else
+            {
+                lblWorkoutName.Visible = false;
+                lblWorkoutDate.Visible = false;
+                lstViewLiftSets.Visible = false;
+            }
+        }
     }
 }
