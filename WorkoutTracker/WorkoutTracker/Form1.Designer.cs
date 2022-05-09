@@ -52,6 +52,10 @@
             this.tblLifttblLiftSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tblLifttblLiftSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cmbLifts = new System.Windows.Forms.ComboBox();
+            this.btnLiftAdd = new System.Windows.Forms.Button();
+            this.btnLiftRename = new System.Windows.Forms.Button();
+            this.btnLiftRemove = new System.Windows.Forms.Button();
+            this.txtLiftEdit = new System.Windows.Forms.TextBox();
             this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblWorkoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -62,6 +66,7 @@
             this.tblLiftTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblLiftTableAdapter();
             this.tblLiftBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tblLiftBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.cbLiftEdit = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).BeginInit();
@@ -216,7 +221,7 @@
             this.lstViewLiftsList.FullRowSelect = true;
             this.lstViewLiftsList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstViewLiftsList.HideSelection = false;
-            this.lstViewLiftsList.Location = new System.Drawing.Point(814, 77);
+            this.lstViewLiftsList.Location = new System.Drawing.Point(964, 77);
             this.lstViewLiftsList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstViewLiftsList.MultiSelect = false;
             this.lstViewLiftsList.Name = "lstViewLiftsList";
@@ -270,6 +275,50 @@
             this.cmbLifts.TabIndex = 10;
             this.cmbLifts.Visible = false;
             this.cmbLifts.SelectedIndexChanged += new System.EventHandler(this.cmbLifts_SelectedIndexChanged);
+            // 
+            // btnLiftAdd
+            // 
+            this.btnLiftAdd.BackColor = System.Drawing.Color.White;
+            this.btnLiftAdd.Location = new System.Drawing.Point(815, 113);
+            this.btnLiftAdd.Name = "btnLiftAdd";
+            this.btnLiftAdd.Size = new System.Drawing.Size(120, 40);
+            this.btnLiftAdd.TabIndex = 11;
+            this.btnLiftAdd.Text = "Add";
+            this.btnLiftAdd.UseVisualStyleBackColor = false;
+            this.btnLiftAdd.Visible = false;
+            this.btnLiftAdd.Click += new System.EventHandler(this.btnLiftAdd_Click);
+            // 
+            // btnLiftRename
+            // 
+            this.btnLiftRename.BackColor = System.Drawing.Color.White;
+            this.btnLiftRename.Location = new System.Drawing.Point(815, 159);
+            this.btnLiftRename.Name = "btnLiftRename";
+            this.btnLiftRename.Size = new System.Drawing.Size(120, 40);
+            this.btnLiftRename.TabIndex = 12;
+            this.btnLiftRename.Text = "Rename";
+            this.btnLiftRename.UseVisualStyleBackColor = false;
+            this.btnLiftRename.Visible = false;
+            this.btnLiftRename.Click += new System.EventHandler(this.btnLiftRename_Click);
+            // 
+            // btnLiftRemove
+            // 
+            this.btnLiftRemove.BackColor = System.Drawing.Color.White;
+            this.btnLiftRemove.Location = new System.Drawing.Point(816, 205);
+            this.btnLiftRemove.Name = "btnLiftRemove";
+            this.btnLiftRemove.Size = new System.Drawing.Size(120, 40);
+            this.btnLiftRemove.TabIndex = 13;
+            this.btnLiftRemove.Text = "Remove";
+            this.btnLiftRemove.UseVisualStyleBackColor = false;
+            this.btnLiftRemove.Visible = false;
+            this.btnLiftRemove.Click += new System.EventHandler(this.btnLiftRemove_Click);
+            // 
+            // txtLiftEdit
+            // 
+            this.txtLiftEdit.Location = new System.Drawing.Point(815, 77);
+            this.txtLiftEdit.Name = "txtLiftEdit";
+            this.txtLiftEdit.Size = new System.Drawing.Size(120, 30);
+            this.txtLiftEdit.TabIndex = 14;
+            this.txtLiftEdit.Visible = false;
             // 
             // tblLiftBindingSource
             // 
@@ -325,12 +374,29 @@
             this.tblLiftBindingSource2.DataMember = "tblLift";
             this.tblLiftBindingSource2.DataSource = this.dbWorkoutTrackerDataSet;
             // 
+            // cbLiftEdit
+            // 
+            this.cbLiftEdit.AutoSize = true;
+            this.cbLiftEdit.Location = new System.Drawing.Point(816, 251);
+            this.cbLiftEdit.Name = "cbLiftEdit";
+            this.cbLiftEdit.Size = new System.Drawing.Size(65, 29);
+            this.cbLiftEdit.TabIndex = 15;
+            this.cbLiftEdit.Text = "edit";
+            this.cbLiftEdit.UseVisualStyleBackColor = true;
+            this.cbLiftEdit.Visible = false;
+            this.cbLiftEdit.CheckedChanged += new System.EventHandler(this.cbLiftEdit_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1431, 537);
+            this.ClientSize = new System.Drawing.Size(1852, 537);
+            this.Controls.Add(this.cbLiftEdit);
+            this.Controls.Add(this.txtLiftEdit);
+            this.Controls.Add(this.btnLiftRemove);
+            this.Controls.Add(this.btnLiftRename);
+            this.Controls.Add(this.btnLiftAdd);
             this.Controls.Add(this.cmbLifts);
             this.Controls.Add(this.lstViewLiftsList);
             this.Controls.Add(this.lstViewWorkouts);
@@ -394,6 +460,11 @@
         private System.Windows.Forms.BindingSource tblLifttblLiftSetBindingSource1;
         private System.Windows.Forms.ComboBox cmbLifts;
         private System.Windows.Forms.BindingSource tblLiftBindingSource2;
+        private System.Windows.Forms.Button btnLiftAdd;
+        private System.Windows.Forms.Button btnLiftRename;
+        private System.Windows.Forms.Button btnLiftRemove;
+        private System.Windows.Forms.TextBox txtLiftEdit;
+        private System.Windows.Forms.CheckBox cbLiftEdit;
     }
 }
 

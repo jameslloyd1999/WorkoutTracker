@@ -37,8 +37,6 @@ namespace WorkoutTracker
                 int workoutID = Convert.ToInt32(lstViewWorkouts.Items[0].SubItems[2].Text);
                 displayLiftSets(workoutID);
             }
-
-            cmbLiftsFill();
         }
 
         private void displayWorkouts()
@@ -189,9 +187,13 @@ namespace WorkoutTracker
         private void cmbLiftsFill()
         {
             //function to fill the combobox of the lift list with liftNames and put liftIDs as value members
+            //the values of each item in the combobox to be stored as a string with spaces inbetween
+            cmbLifts.Items.Clear();
+            cmbLifts.ValueMember = "";
             try
             {
                 string liftIDs = "";
+                //sql to get all records from tblLift
                 foreach (DataRow row in this.tblLiftTableAdapter.GetData().Rows)
                 {
                     int liftID = Convert.ToInt32(row.ItemArray[0]);
@@ -201,6 +203,11 @@ namespace WorkoutTracker
 
                     cmbLifts.Items.Add(liftName);
                 }
+
+                //final item in combobox to add new lifts
+                cmbLifts.Items.Add("ADD NEW");
+                liftIDs = liftIDs + "0";
+
                 cmbLifts.ValueMember = liftIDs;
 
                 //sets it to be on first item in the list as default
@@ -232,6 +239,11 @@ namespace WorkoutTracker
 
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
+            txtLiftEdit.Visible = false;
+            btnLiftAdd.Visible = false;
+            btnLiftRename.Visible = false;
+            btnLiftRemove.Visible = false;
+            cbLiftEdit.Visible = false;
         }
 
         private void btnAddWorkout_Click(object sender, EventArgs e)
@@ -250,6 +262,11 @@ namespace WorkoutTracker
 
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
+            txtLiftEdit.Visible = false;
+            btnLiftAdd.Visible = false;
+            btnLiftRename.Visible = false;
+            btnLiftRemove.Visible = false;
+            cbLiftEdit.Visible = false;
         }
 
         private void btnLiftsList_Click(object sender, EventArgs e)
@@ -268,6 +285,8 @@ namespace WorkoutTracker
 
             lstViewLiftsList.Visible = true;
             cmbLifts.Visible = true;
+            cmbLiftsFill();
+
         }
 
         private void lstViewWorkouts_SelectedIndexChanged(object sender, EventArgs e)
@@ -284,11 +303,119 @@ namespace WorkoutTracker
 
         private void cmbLifts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //when a lift in the lifts combobox is selected finds the liftID
+            //when a lift in the lifts combobox is selected first finds the liftID
             string cmbValue = cmbLifts.ValueMember;
             string[] liftIDs = cmbValue.Split(' ');
             int liftID = Convert.ToInt32(liftIDs[cmbLifts.SelectedIndex]);
-            displayLiftsListLstView(liftID);
+
+            //liftID=0 when it's on ADD NEW
+            if(liftID == 0)
+            {
+                cbLiftEdit.Visible = false;
+                cbLiftEdit.Checked = false;
+                txtLiftEdit.Visible = true;
+                txtLiftEdit.Text = "";
+                btnLiftAdd.Visible = true;
+                lstViewLiftsList.Items.Clear();
+            }
+            //else for the actual lifts
+            else
+            {
+                txtLiftEdit.Visible = false;
+                btnLiftAdd.Visible = false;
+                cbLiftEdit.Visible = true;
+                cbLiftEdit.Checked = false;
+                txtLiftEdit.Text = "";
+                displayLiftsListLstView(liftID);
+            }
+            
+
+
+        }
+
+        private void btnLiftAdd_Click(object sender, EventArgs e)
+        {
+            //code to add a new lift to tblLift
+            if(txtLiftEdit.Text != "")
+            {
+                try
+                {
+                    //sql insert into tblLift
+                    this.tblLiftTableAdapter.InsertQuery(txtLiftEdit.Text);
+                    cmbLiftsFill();
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void cbLiftEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            //code for when the checkbox in lift list is changed
+            if (cbLiftEdit.Checked == true)
+            {
+                txtLiftEdit.Visible = true;
+                btnLiftRename.Visible = true;
+                btnLiftRemove.Visible = true;
+                txtLiftEdit.Text = cmbLifts.SelectedItem.ToString();
+            }
+            else
+            {
+                txtLiftEdit.Visible = false;
+                btnLiftRename.Visible = false;
+                btnLiftRemove.Visible = false;
+                txtLiftEdit.Text = "";
+            }
+        }
+
+        private void btnLiftRename_Click(object sender, EventArgs e)
+        {
+            //code to update a liftName in tblLift
+            //first gets liftID from the combobox
+            string cmbValue = cmbLifts.ValueMember;
+            string[] liftIDs = cmbValue.Split(' ');
+            int liftID = Convert.ToInt32(liftIDs[cmbLifts.SelectedIndex]);
+
+            if (txtLiftEdit.Text != "")
+            {
+                try
+                {
+                    //sql to update tblLift
+                    this.tblLiftTableAdapter.UpdateQuery(txtLiftEdit.Text, liftID);
+                    cmbLiftsFill();
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void btnLiftRemove_Click(object sender, EventArgs e)
+        {
+            //code to remove a lift from both tblLift and tblSet
+            //first gets liftID from the combobox
+            string cmbValue = cmbLifts.ValueMember;
+            string[] liftIDs = cmbValue.Split(' ');
+            int liftID = Convert.ToInt32(liftIDs[cmbLifts.SelectedIndex]);
+
+            //asks for confirmation as a lot of data may be accidentally deleted
+            if(MessageBox.Show("Confirm deletion","",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                try
+                {
+                    //will first delete all the records in tblLiftSet that have the liftID then from tblLift
+                    this.tblLiftSetTableAdapter.DeleteQueryLiftID(liftID);
+                    this.tblLiftTableAdapter.DeleteQuery(liftID);
+                    cmbLiftsFill();
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+            }                        
         }
     }
 }
