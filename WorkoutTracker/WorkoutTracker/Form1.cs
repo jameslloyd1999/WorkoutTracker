@@ -28,15 +28,6 @@ namespace WorkoutTracker
         private void Form1_Load(object sender, EventArgs e)
         {
             displayWorkouts();
-
-
-            if(lstViewWorkouts.Items.Count != 0)
-            {
-                lblWorkoutName.Text = lstViewWorkouts.Items[0].SubItems[0].Text;
-                lblWorkoutDate.Text = lstViewWorkouts.Items[0].SubItems[1].Text;
-                int workoutID = Convert.ToInt32(lstViewWorkouts.Items[0].SubItems[2].Text);
-                displayLiftSets(workoutID);
-            }
         }
 
         private void displayWorkouts()
@@ -59,6 +50,15 @@ namespace WorkoutTracker
                     lstViewWorkouts.Items[n].SubItems.Add(workoutDate.ToShortDateString());
                     lstViewWorkouts.Items[n].SubItems.Add(workoutID.ToString());
                 }
+
+                //will take the first workout in the listview to be displayed in the other listview
+                if (lstViewWorkouts.Items.Count != 0)
+                {
+                    lblWorkoutName.Text = lstViewWorkouts.Items[0].SubItems[0].Text;
+                    lblWorkoutDate.Text = lstViewWorkouts.Items[0].SubItems[1].Text;
+                    int workoutID = Convert.ToInt32(lstViewWorkouts.Items[0].SubItems[2].Text);
+                    displayLiftSets(workoutID);
+                }
             }
             catch (System.Exception ex)
             {
@@ -74,6 +74,7 @@ namespace WorkoutTracker
             //sql returns the records in tblLiftSet with the specific workoutID and the name of the lift
             try
             {
+                int lastLiftID = 0;
                 foreach (DataRow row in this.tblLiftSetTableAdapter.GetDataForSpecificWorkout(workoutID).Rows)
                 {
                     string liftName = row.ItemArray[7].ToString();
@@ -92,6 +93,17 @@ namespace WorkoutTracker
                         liftWeight = liftWeight + "lbs";
                     }
 
+                    //removes where the liftName is written multiple times next to eachother in the list view
+                    int liftID = Convert.ToInt32(row.ItemArray[2]);
+                    if (liftID == lastLiftID)
+                    {
+                        liftName = " ";
+                    }
+                    else
+                    {
+                        lastLiftID = liftID;
+                    }
+
                     //adds lift details to the list view
                     lstViewLiftSets.Items.Add(liftName);
                     int n = lstViewLiftSets.Items.Count - 1;
@@ -100,22 +112,6 @@ namespace WorkoutTracker
                     lstViewLiftSets.Items[n].SubItems.Add(liftReps);
 
                 }
-
-                //removes where the liftName is written multiple times next to eachother in the list view
-                int m = lstViewLiftSets.Items.Count;
-                string currentLiftName = "";
-                for(int i = 0; i<m; i++)
-                {
-                    if(lstViewLiftSets.Items[i].Text == currentLiftName)
-                    {
-                        lstViewLiftSets.Items[i].Text = " ";
-                    }
-                    else
-                    {
-                        currentLiftName = lstViewLiftSets.Items[i].Text;
-                    }
-                }
-
             }
             catch (System.Exception ex)
             {
@@ -128,13 +124,15 @@ namespace WorkoutTracker
             //function to display the lifts done in the lifts list list view
             lstViewLiftsList.Items.Clear();
 
+            //sql returns the records in tblLiftSet with the specific liftID and the name and date of the workout
             try
             {
-                //sql returns the records in tblLiftSet with the specific liftID and the name and date of the workout
+                int lastWorkoutID = 0;
                 foreach (DataRow row in this.tblLiftSetTableAdapter.GetDataForSpecificLift(liftID).Rows)
                 {
                     string workoutName = row.ItemArray[7].ToString();
                     DateTime workoutDate = Convert.ToDateTime(row.ItemArray[8]);
+                    string workoutDateStr = workoutDate.ToShortDateString();
                     string liftWeight = row.ItemArray[3].ToString();
                     string liftSets = row.ItemArray[5].ToString();
                     string liftReps = row.ItemArray[6].ToString();
@@ -150,32 +148,25 @@ namespace WorkoutTracker
                         liftWeight = liftWeight + "lbs";
                     }
 
-                    //adds lift details to the list view
-                    lstViewLiftsList.Items.Add(workoutName);
-                    int n = lstViewLiftsList.Items.Count - 1;
-                    lstViewLiftsList.Items[n].SubItems.Add(workoutDate.ToShortDateString());
-                    lstViewLiftsList.Items[n].SubItems.Add(liftWeight);
-                    lstViewLiftsList.Items[n].SubItems.Add(liftSets);
-                    lstViewLiftsList.Items[n].SubItems.Add(liftReps);
-                }
-
-                //removes where the workoutName and workoutDate is written multiple times next to eachother in the list view
-                int m = lstViewLiftsList.Items.Count;
-                string currentWorkoutName = "";
-                string currentWorkoutDate = "";
-                for (int i = 0; i < m; i++)
-                {
-                    if (lstViewLiftsList.Items[i].Text == currentWorkoutName && lstViewLiftsList.Items[i].SubItems[0].Text == currentWorkoutDate)
+                    //removes where the workoutName and workoutDate are written multiple times next to eachother in the list view
+                    int workoutID = Convert.ToInt32(row.ItemArray[1]);
+                    if (workoutID == lastWorkoutID)
                     {
-                        lstViewLiftsList.Items[i].Text = " ";
-                        lstViewLiftsList.Items[i].SubItems[0].Text = " ";
-                        lstViewLiftsList.Items[i].SubItems[0].Text = " "; //need to fix this
+                        workoutName = " ";
+                        workoutDateStr = " ";
                     }
                     else
                     {
-                        currentWorkoutName = lstViewLiftsList.Items[i].Text;
-                        currentWorkoutDate = lstViewLiftsList.Items[i].SubItems[0].Text;
+                        lastWorkoutID = workoutID;
                     }
+
+                    //adds lift details to the list view
+                    lstViewLiftsList.Items.Add(workoutName);
+                    int n = lstViewLiftsList.Items.Count - 1;
+                    lstViewLiftsList.Items[n].SubItems.Add(workoutDateStr);
+                    lstViewLiftsList.Items[n].SubItems.Add(liftWeight);
+                    lstViewLiftsList.Items[n].SubItems.Add(liftSets);
+                    lstViewLiftsList.Items[n].SubItems.Add(liftReps);
                 }
             }
             catch (System.Exception ex)
@@ -231,12 +222,13 @@ namespace WorkoutTracker
             btnAddWorkout.Enabled = true;
             btnLiftsList.Enabled = true;
 
-            //changes what is visible in this view
+            //changes what is visible in this view and resets that screen
+            displayWorkouts();
             lstViewWorkouts.Visible = true;
             lstViewLiftSets.Visible = true;
             lblWorkoutName.Visible = true;
             lblWorkoutDate.Visible = true;
-
+            
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
             txtLiftEdit.Visible = false;
@@ -254,7 +246,7 @@ namespace WorkoutTracker
             btnAddWorkout.Enabled = false;
             btnLiftsList.Enabled = true;
 
-            //changes what is visible in this view
+            //changes what is visible in this view and resets that screen
             lstViewWorkouts.Visible = false;
             lstViewLiftSets.Visible = false;
             lblWorkoutName.Visible = false;
@@ -277,16 +269,15 @@ namespace WorkoutTracker
             btnAddWorkout.Enabled = true;
             btnLiftsList.Enabled = false;
 
-            //changes what is visible in this view
+            //changes what is visible in this view and resets that screeen
             lstViewWorkouts.Visible = false;
             lstViewLiftSets.Visible = false;
             lblWorkoutName.Visible = false;
             lblWorkoutDate.Visible = false;
 
-            lstViewLiftsList.Visible = true;
-            cmbLifts.Visible = true;
             cmbLiftsFill();
-
+            lstViewLiftsList.Visible = true;
+            cmbLifts.Visible = true;        
         }
 
         private void lstViewWorkouts_SelectedIndexChanged(object sender, EventArgs e)
