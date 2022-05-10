@@ -226,35 +226,79 @@ namespace WorkoutTracker
 
         private void addNewSetRow()
         {
+            //function to add a new row on the flowlayout panel to be filled
+            //n is the number of rows already
+            int n = flpAddNew.Controls.Count / 5;
+
+            //combobox for liftNames. Takes these names from cmbLifts
             ComboBox cmb = new ComboBox();
             foreach (string liftName in cmbLifts.Items)
             {
-                cmb.Items.Add(liftName);
+                if (liftName != "ADD NEW")
+                {
+                    cmb.Items.Add(liftName);
+                }
+                
             }
             cmb.ValueMember = cmbLifts.ValueMember;
-            cmb.SelectedIndex = 0; //default to previous selected index
+            //takes the selectedIndex of the liftName combobox above it if there is one
+            if(n != 0)
+            {
+                cmb.SelectedIndex = Convert.ToInt32(flpAddNew.Controls[5 * (n - 1)].Tag);
+            }
+            else
+            {
+                cmb.SelectedIndex = 0;
+            }
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb.Tag = cmb.SelectedIndex;
+            cmb.SelectedIndexChanged += cmb_SelectedIndexChanged;
             flpAddNew.Controls.Add(cmb);
 
+            //textbox for weight
             TextBox txt1 = new TextBox();
             txt1.Size = new Size(60, 30);
             flpAddNew.Controls.Add(txt1);
 
+            //combobox for kg or lbs
             ComboBox cmb2 = new ComboBox();
             cmb2.Items.Add("kg");
             cmb2.Items.Add("lbs");
-            cmb2.SelectedIndex = 0; //default to previous selected index
+            //takes the selectedIndex of the kg or lbs combobox above it if there is one
+            if (n != 0)
+            {
+                if (flpAddNew.Controls[5*(n-1)+2].Text == "kg")
+                {
+                    cmb2.SelectedIndex = 0;
+                }
+                else
+                {
+                    cmb2.SelectedIndex = 1;
+                }
+            }
+            else
+            {
+                cmb2.SelectedIndex = 0;
+            }
             cmb2.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb2.Size = new Size(50, 30);
             flpAddNew.Controls.Add(cmb2);
 
+            //textbox for sets
             TextBox txt2 = new TextBox();
             txt2.Size = new Size(40, 30);
             flpAddNew.Controls.Add(txt2);
 
+            //textbox for reps
             TextBox txt3 = new TextBox();
             txt3.Size = new Size(40, 30);
             flpAddNew.Controls.Add(txt3);
+        }
+
+        private void cmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //sets the tag of a liftName combobox in the the flowLayoutPanel to the selected index whenever it is changed
+            (sender as ComboBox).Tag = (sender as ComboBox).SelectedIndex;
         }
 
         private void btnViewWorkouts_Click(object sender, EventArgs e)
@@ -474,6 +518,11 @@ namespace WorkoutTracker
         private void btnNewRow_Click(object sender, EventArgs e)
         {
             addNewSetRow();
+        }
+
+        private void btnInsertWorkout_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

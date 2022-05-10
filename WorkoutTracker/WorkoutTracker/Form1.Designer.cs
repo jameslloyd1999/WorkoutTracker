@@ -437,6 +437,7 @@
             this.btnInsertWorkout.Text = "Finish";
             this.btnInsertWorkout.UseVisualStyleBackColor = false;
             this.btnInsertWorkout.Visible = false;
+            this.btnInsertWorkout.Click += new System.EventHandler(this.btnInsertWorkout_Click);
             // 
             // Form1
             // 
