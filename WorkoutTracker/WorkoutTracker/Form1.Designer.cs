@@ -50,14 +50,14 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tblLifttblLiftSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblLifttblLiftSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cmbLifts = new System.Windows.Forms.ComboBox();
             this.btnLiftAdd = new System.Windows.Forms.Button();
             this.btnLiftRename = new System.Windows.Forms.Button();
             this.btnLiftRemove = new System.Windows.Forms.Button();
             this.txtLiftEdit = new System.Windows.Forms.TextBox();
-            this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblWorkoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tblWorkoutTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblWorkoutTableAdapter();
             this.tableAdapterManager = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.TableAdapterManager();
@@ -67,10 +67,15 @@
             this.tblLiftBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tblLiftBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.cbLiftEdit = new System.Windows.Forms.CheckBox();
+            this.dtpAddNew = new System.Windows.Forms.DateTimePicker();
+            this.txtWorkoutName = new System.Windows.Forms.TextBox();
+            this.btnNewRow = new System.Windows.Forms.Button();
+            this.flpAddNew = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnInsertWorkout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource1)).BeginInit();
@@ -259,6 +264,16 @@
             this.tblLifttblLiftSetBindingSource.DataMember = "tblLifttblLiftSet";
             this.tblLifttblLiftSetBindingSource.DataSource = this.tblLiftBindingSource;
             // 
+            // tblLiftBindingSource
+            // 
+            this.tblLiftBindingSource.DataMember = "tblLift";
+            this.tblLiftBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
+            // 
+            // dbWorkoutTrackerDataSet
+            // 
+            this.dbWorkoutTrackerDataSet.DataSetName = "dbWorkoutTrackerDataSet";
+            this.dbWorkoutTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // tblLifttblLiftSetBindingSource1
             // 
             this.tblLifttblLiftSetBindingSource1.DataMember = "tblLifttblLiftSet";
@@ -320,16 +335,6 @@
             this.txtLiftEdit.TabIndex = 14;
             this.txtLiftEdit.Visible = false;
             // 
-            // tblLiftBindingSource
-            // 
-            this.tblLiftBindingSource.DataMember = "tblLift";
-            this.tblLiftBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
-            // 
-            // dbWorkoutTrackerDataSet
-            // 
-            this.dbWorkoutTrackerDataSet.DataSetName = "dbWorkoutTrackerDataSet";
-            this.dbWorkoutTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // tblWorkoutBindingSource
             // 
             this.tblWorkoutBindingSource.DataMember = "tblWorkout";
@@ -386,12 +391,64 @@
             this.cbLiftEdit.Visible = false;
             this.cbLiftEdit.CheckedChanged += new System.EventHandler(this.cbLiftEdit_CheckedChanged);
             // 
+            // dtpAddNew
+            // 
+            this.dtpAddNew.Location = new System.Drawing.Point(781, 535);
+            this.dtpAddNew.Name = "dtpAddNew";
+            this.dtpAddNew.Size = new System.Drawing.Size(200, 30);
+            this.dtpAddNew.TabIndex = 16;
+            this.dtpAddNew.Value = new System.DateTime(2022, 5, 10, 11, 54, 19, 0);
+            this.dtpAddNew.Visible = false;
+            // 
+            // txtWorkoutName
+            // 
+            this.txtWorkoutName.Location = new System.Drawing.Point(565, 535);
+            this.txtWorkoutName.Name = "txtWorkoutName";
+            this.txtWorkoutName.Size = new System.Drawing.Size(210, 30);
+            this.txtWorkoutName.TabIndex = 17;
+            this.txtWorkoutName.Visible = false;
+            // 
+            // btnNewRow
+            // 
+            this.btnNewRow.BackColor = System.Drawing.Color.White;
+            this.btnNewRow.Location = new System.Drawing.Point(987, 571);
+            this.btnNewRow.Name = "btnNewRow";
+            this.btnNewRow.Size = new System.Drawing.Size(90, 40);
+            this.btnNewRow.TabIndex = 18;
+            this.btnNewRow.Text = "Add set";
+            this.btnNewRow.UseVisualStyleBackColor = false;
+            this.btnNewRow.Visible = false;
+            this.btnNewRow.Click += new System.EventHandler(this.btnNewRow_Click);
+            // 
+            // flpAddNew
+            // 
+            this.flpAddNew.Location = new System.Drawing.Point(565, 571);
+            this.flpAddNew.Name = "flpAddNew";
+            this.flpAddNew.Size = new System.Drawing.Size(416, 150);
+            this.flpAddNew.TabIndex = 19;
+            // 
+            // btnInsertWorkout
+            // 
+            this.btnInsertWorkout.BackColor = System.Drawing.Color.White;
+            this.btnInsertWorkout.Location = new System.Drawing.Point(881, 727);
+            this.btnInsertWorkout.Name = "btnInsertWorkout";
+            this.btnInsertWorkout.Size = new System.Drawing.Size(100, 40);
+            this.btnInsertWorkout.TabIndex = 20;
+            this.btnInsertWorkout.Text = "Finish";
+            this.btnInsertWorkout.UseVisualStyleBackColor = false;
+            this.btnInsertWorkout.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1852, 537);
+            this.ClientSize = new System.Drawing.Size(1852, 861);
+            this.Controls.Add(this.btnInsertWorkout);
+            this.Controls.Add(this.flpAddNew);
+            this.Controls.Add(this.btnNewRow);
+            this.Controls.Add(this.txtWorkoutName);
+            this.Controls.Add(this.dtpAddNew);
             this.Controls.Add(this.cbLiftEdit);
             this.Controls.Add(this.txtLiftEdit);
             this.Controls.Add(this.btnLiftRemove);
@@ -413,9 +470,9 @@
             this.Text = "WorkoutTracker";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource1)).EndInit();
@@ -465,6 +522,11 @@
         private System.Windows.Forms.Button btnLiftRemove;
         private System.Windows.Forms.TextBox txtLiftEdit;
         private System.Windows.Forms.CheckBox cbLiftEdit;
+        private System.Windows.Forms.DateTimePicker dtpAddNew;
+        private System.Windows.Forms.TextBox txtWorkoutName;
+        private System.Windows.Forms.Button btnNewRow;
+        private System.Windows.Forms.FlowLayoutPanel flpAddNew;
+        private System.Windows.Forms.Button btnInsertWorkout;
     }
 }
 

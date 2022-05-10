@@ -214,6 +214,49 @@ namespace WorkoutTracker
             }
         }
 
+        private void addWorkoutView()
+        {
+            //function to reset the Add Workout View
+            txtWorkoutName.Text = "";
+            dtpAddNew.Value = DateTime.Now;
+            flpAddNew.Controls.Clear();
+            cmbLiftsFill();
+            addNewSetRow();
+        }
+
+        private void addNewSetRow()
+        {
+            ComboBox cmb = new ComboBox();
+            foreach (string liftName in cmbLifts.Items)
+            {
+                cmb.Items.Add(liftName);
+            }
+            cmb.ValueMember = cmbLifts.ValueMember;
+            cmb.SelectedIndex = 0; //default to previous selected index
+            cmb.DropDownStyle = ComboBoxStyle.DropDownList;
+            flpAddNew.Controls.Add(cmb);
+
+            TextBox txt1 = new TextBox();
+            txt1.Size = new Size(60, 30);
+            flpAddNew.Controls.Add(txt1);
+
+            ComboBox cmb2 = new ComboBox();
+            cmb2.Items.Add("kg");
+            cmb2.Items.Add("lbs");
+            cmb2.SelectedIndex = 0; //default to previous selected index
+            cmb2.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb2.Size = new Size(50, 30);
+            flpAddNew.Controls.Add(cmb2);
+
+            TextBox txt2 = new TextBox();
+            txt2.Size = new Size(40, 30);
+            flpAddNew.Controls.Add(txt2);
+
+            TextBox txt3 = new TextBox();
+            txt3.Size = new Size(40, 30);
+            flpAddNew.Controls.Add(txt3);
+        }
+
         private void btnViewWorkouts_Click(object sender, EventArgs e)
         {
             //changes title at top of form and clickability of buttons at bottom
@@ -228,7 +271,13 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = true;
             lblWorkoutName.Visible = true;
             lblWorkoutDate.Visible = true;
-            
+
+            txtWorkoutName.Visible = false;
+            dtpAddNew.Visible = false;
+            flpAddNew.Visible = false;
+            btnNewRow.Visible = false;
+            btnInsertWorkout.Visible = false;
+
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
             txtLiftEdit.Visible = false;
@@ -252,6 +301,13 @@ namespace WorkoutTracker
             lblWorkoutName.Visible = false;
             lblWorkoutDate.Visible = false;
 
+            addWorkoutView();
+            txtWorkoutName.Visible = true;
+            dtpAddNew.Visible = true;
+            flpAddNew.Visible = true;
+            btnNewRow.Visible = true;
+            btnInsertWorkout.Visible = true;
+
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
             txtLiftEdit.Visible = false;
@@ -274,6 +330,12 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = false;
             lblWorkoutName.Visible = false;
             lblWorkoutDate.Visible = false;
+
+            txtWorkoutName.Visible = false;
+            dtpAddNew.Visible = false;
+            flpAddNew.Visible = false;
+            btnNewRow.Visible = false;
+            btnInsertWorkout.Visible = false;
 
             cmbLiftsFill();
             lstViewLiftsList.Visible = true;
@@ -407,6 +469,11 @@ namespace WorkoutTracker
                     System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
             }                        
+        }
+
+        private void btnNewRow_Click(object sender, EventArgs e)
+        {
+            addNewSetRow();
         }
     }
 }
