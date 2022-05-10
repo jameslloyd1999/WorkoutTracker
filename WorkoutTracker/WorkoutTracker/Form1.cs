@@ -240,7 +240,6 @@ namespace WorkoutTracker
                 }
                 
             }
-            cmb.ValueMember = cmbLifts.ValueMember;
             //takes the selectedIndex of the liftName combobox above it if there is one
             if(n != 0)
             {
@@ -522,6 +521,85 @@ namespace WorkoutTracker
 
         private void btnInsertWorkout_Click(object sender, EventArgs e)
         {
+            //function to add the workout and lifts done
+
+            string workoutName = txtWorkoutName.Text;
+            DateTime workoutDate = Convert.ToDateTime( dtpAddNew.Text);
+
+            //checks that the appropriate data is in each field in the flowLayoutPanel
+            bool filled = true;
+            foreach (Control c in flpAddNew.Controls)
+            {
+                //check that it's an int in +1 +3 +4
+            }
+
+            if (workoutName != "" && filled)
+            {
+                try
+                {
+                    //sql insert into tblWorkout
+                    this.tblWorkoutTableAdapter.InsertQuery(workoutName,workoutDate);
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+
+                //gets the workoutID of the most recent workout which is the one just inserted
+                int workoutID = 0;
+                try
+                {
+                    foreach (DataRow row in this.tblWorkoutTableAdapter.GetData().Rows)
+                    {
+                        workoutID = Convert.ToInt32(row.ItemArray[0]);
+                    }
+
+                }
+                catch (System.Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+
+                //n is number of rows in flowLayoutPanel
+                int n = flpAddNew.Controls.Count / 5;
+
+                //loops through each row getting liftID, weight, kg, sets, reps from the FlowLayoutPanel
+                for (int i = 0; i < n; i++)
+                {
+                    //gets the liftID from cmbLifts valueMember using index of flowLayoutPanel liftName combobox
+                    string cmbValue = cmbLifts.ValueMember;
+                    string[] liftIDs = cmbValue.Split(' ');
+                    int liftID = Convert.ToInt32(liftIDs[Convert.ToInt32(flpAddNew.Controls[5 * i].Tag)]);
+
+                    int weight = Convert.ToInt32(flpAddNew.Controls[5 * i + 1].Text);
+
+                    bool kg = true;
+                    if (flpAddNew.Controls[5 * i + 2].Text != "kg")
+                    {
+                        kg = false;
+                    }
+
+                    int sets = Convert.ToInt32(flpAddNew.Controls[5 * i + 3].Text);
+                    int reps = Convert.ToInt32(flpAddNew.Controls[5 * i + 4].Text);                    
+
+                    try
+                    {
+                        //sql insert into tblLiftSet
+                        this.tblLiftSetTableAdapter.InsertQuery(workoutID, liftID, weight, kg, sets, reps);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show(ex.Message);
+                    }
+
+                    
+                }
+                //resets this view
+                addWorkoutView();
+                cbLiftEdit.Visible = false;
+            }
+
+            
 
         }
     }
