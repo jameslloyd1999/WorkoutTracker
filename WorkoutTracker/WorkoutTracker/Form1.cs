@@ -228,7 +228,7 @@ namespace WorkoutTracker
         {
             //function to add a new row on the flowlayout panel to be filled
             //n is the number of rows already
-            int n = flpAddNew.Controls.Count / 5;
+            int n = flpAddNew.Controls.Count / 6;
 
             //combobox for liftNames. Takes these names from cmbLifts
             ComboBox cmb = new ComboBox();
@@ -243,7 +243,7 @@ namespace WorkoutTracker
             //takes the selectedIndex of the liftName combobox above it if there is one
             if(n != 0)
             {
-                cmb.SelectedIndex = Convert.ToInt32(flpAddNew.Controls[5 * (n - 1)].Tag);
+                cmb.SelectedIndex = Convert.ToInt32(flpAddNew.Controls[6 * (n - 1)].Tag);
             }
             else
             {
@@ -257,6 +257,7 @@ namespace WorkoutTracker
             //textbox for weight
             TextBox txt1 = new TextBox();
             txt1.Size = new Size(60, 30);
+            txt1.Name = "txtFlpDecimal";
             flpAddNew.Controls.Add(txt1);
 
             //combobox for kg or lbs
@@ -266,7 +267,7 @@ namespace WorkoutTracker
             //takes the selectedIndex of the kg or lbs combobox above it if there is one
             if (n != 0)
             {
-                if (flpAddNew.Controls[5*(n-1)+2].Text == "kg")
+                if (flpAddNew.Controls[6*(n-1)+2].Text == "kg")
                 {
                     cmb2.SelectedIndex = 0;
                 }
@@ -286,18 +287,48 @@ namespace WorkoutTracker
             //textbox for sets
             TextBox txt2 = new TextBox();
             txt2.Size = new Size(40, 30);
+            txt2.Name = "txtFlpInt";
             flpAddNew.Controls.Add(txt2);
 
             //textbox for reps
             TextBox txt3 = new TextBox();
             txt3.Size = new Size(40, 30);
+            txt3.Name = "txtFlpInt";
             flpAddNew.Controls.Add(txt3);
+
+            //button for delete row
+            Button btn = new Button();
+            btn.Size = new Size(20, 20);
+            btn.Text = "x";
+            btn.Font = new Font(btn.Font.FontFamily, 8);
+            btn.Click += btn_click;
+            flpAddNew.Controls.Add(btn);
         }
 
         private void cmb_SelectedIndexChanged(object sender, EventArgs e)
         {
             //sets the tag of a liftName combobox in the the flowLayoutPanel to the selected index whenever it is changed
             (sender as ComboBox).Tag = (sender as ComboBox).SelectedIndex;
+        }
+
+        private void btn_click(object sender, EventArgs e)
+        {
+            //code to remove row from new workout when delete row button clicked
+            //first finds the position in the flp where the delete button was clicked
+            int n = flpAddNew.Controls.Count;
+            int j = 0;
+            for (int i = 0; i < n; i++)
+            {
+                if (flpAddNew.Controls[i] == (sender as Button))
+                {
+                    j = i;
+                }
+            }
+            //deletes the row
+            for (int i = 0; i < 6; i++)
+            {
+                flpAddNew.Controls.Remove(flpAddNew.Controls[j - 5]);
+            }
         }
 
         private void btnViewWorkouts_Click(object sender, EventArgs e)
@@ -530,7 +561,21 @@ namespace WorkoutTracker
             bool filled = true;
             foreach (Control c in flpAddNew.Controls)
             {
-                //check that it's an int in +1 +3 +4
+                //check that it's not empty
+                if (c.Text == "")
+                {
+                    filled = false;
+                }
+                //checks that the weight is a decimal
+                else if (c.Name == "txtFlpDecimal" && !decimal.TryParse(c.Text, out decimal value))
+                {
+                    filled = false;
+                }
+                //checks that sets and reps are ints
+                else if (c.Name == "txtFlpInt" && !int.TryParse(c.Text, out int value2))
+                {
+                    filled = false;
+                }
             }
 
             if (workoutName != "" && filled)
@@ -561,7 +606,7 @@ namespace WorkoutTracker
                 }
 
                 //n is number of rows in flowLayoutPanel
-                int n = flpAddNew.Controls.Count / 5;
+                int n = flpAddNew.Controls.Count / 6;
 
                 //loops through each row getting liftID, weight, kg, sets, reps from the FlowLayoutPanel
                 for (int i = 0; i < n; i++)
@@ -569,18 +614,18 @@ namespace WorkoutTracker
                     //gets the liftID from cmbLifts valueMember using index of flowLayoutPanel liftName combobox
                     string cmbValue = cmbLifts.ValueMember;
                     string[] liftIDs = cmbValue.Split(' ');
-                    int liftID = Convert.ToInt32(liftIDs[Convert.ToInt32(flpAddNew.Controls[5 * i].Tag)]);
+                    int liftID = Convert.ToInt32(liftIDs[Convert.ToInt32(flpAddNew.Controls[6 * i].Tag)]);
 
-                    int weight = Convert.ToInt32(flpAddNew.Controls[5 * i + 1].Text);
+                    decimal weight = Convert.ToDecimal(flpAddNew.Controls[6 * i + 1].Text);
 
                     bool kg = true;
-                    if (flpAddNew.Controls[5 * i + 2].Text != "kg")
+                    if (flpAddNew.Controls[6 * i + 2].Text != "kg")
                     {
                         kg = false;
                     }
 
-                    int sets = Convert.ToInt32(flpAddNew.Controls[5 * i + 3].Text);
-                    int reps = Convert.ToInt32(flpAddNew.Controls[5 * i + 4].Text);                    
+                    int sets = Convert.ToInt32(flpAddNew.Controls[6 * i + 3].Text);
+                    int reps = Convert.ToInt32(flpAddNew.Controls[6 * i + 4].Text);                    
 
                     try
                     {
