@@ -59,6 +59,12 @@ namespace WorkoutTracker
                     int workoutID = Convert.ToInt32(lstViewWorkouts.Items[0].SubItems[2].Text);
                     displayLiftSets(workoutID);
                 }
+                else
+                {
+                    lstViewLiftSets.Items.Clear();
+                    lblWorkoutName.Text = "";
+                    lblWorkoutDate.Text = "";
+                }
             }
             catch (System.Exception ex)
             {
@@ -345,6 +351,7 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = true;
             lblWorkoutName.Visible = true;
             lblWorkoutDate.Visible = true;
+            btnWorkoutDelete.Visible = true;
 
             txtWorkoutName.Visible = false;
             dtpAddNew.Visible = false;
@@ -374,6 +381,7 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = false;
             lblWorkoutName.Visible = false;
             lblWorkoutDate.Visible = false;
+            btnWorkoutDelete.Visible = false;
 
             addWorkoutView();
             txtWorkoutName.Visible = true;
@@ -404,6 +412,7 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = false;
             lblWorkoutName.Visible = false;
             lblWorkoutDate.Visible = false;
+            btnWorkoutDelete.Visible = false;
 
             txtWorkoutName.Visible = false;
             dtpAddNew.Visible = false;
@@ -646,6 +655,28 @@ namespace WorkoutTracker
 
             
 
+        }
+
+        private void btnWorkoutDelete_Click(object sender, EventArgs e)
+        {
+            //function to delete a selected workout
+            //first checks that a workout is selected and then asks for confirmation
+            if (lstViewWorkouts.Items.Count != 0 && MessageBox.Show("Confirm deletion", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                int workoutID = Convert.ToInt32(lstViewWorkouts.SelectedItems[0].SubItems[2].Text);
+                try
+                {
+                    //sql first deletes from tblLiftSets and then from tblWorkout and then the view is reset
+                    this.tblLiftSetTableAdapter.DeleteQueryLiftID(workoutID);
+                    this.tblWorkoutTableAdapter.DeleteQuery(workoutID);
+                    displayWorkouts();
+                }
+                catch (System.Exception ex)
+                {
+
+                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

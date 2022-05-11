@@ -50,14 +50,21 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tblLifttblLiftSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblLifttblLiftSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.cmbLifts = new System.Windows.Forms.ComboBox();
             this.btnLiftAdd = new System.Windows.Forms.Button();
             this.btnLiftRename = new System.Windows.Forms.Button();
             this.btnLiftRemove = new System.Windows.Forms.Button();
             this.txtLiftEdit = new System.Windows.Forms.TextBox();
+            this.cbLiftEdit = new System.Windows.Forms.CheckBox();
+            this.dtpAddNew = new System.Windows.Forms.DateTimePicker();
+            this.txtWorkoutName = new System.Windows.Forms.TextBox();
+            this.btnNewRow = new System.Windows.Forms.Button();
+            this.flpAddNew = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnInsertWorkout = new System.Windows.Forms.Button();
+            this.btnWorkoutDelete = new System.Windows.Forms.Button();
+            this.tblLiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dbWorkoutTrackerDataSet = new WorkoutTracker.dbWorkoutTrackerDataSet();
             this.tblWorkoutBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tblWorkoutTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblWorkoutTableAdapter();
             this.tableAdapterManager = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.TableAdapterManager();
@@ -66,16 +73,10 @@
             this.tblLiftTableAdapter = new WorkoutTracker.dbWorkoutTrackerDataSetTableAdapters.tblLiftTableAdapter();
             this.tblLiftBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tblLiftBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.cbLiftEdit = new System.Windows.Forms.CheckBox();
-            this.dtpAddNew = new System.Windows.Forms.DateTimePicker();
-            this.txtWorkoutName = new System.Windows.Forms.TextBox();
-            this.btnNewRow = new System.Windows.Forms.Button();
-            this.flpAddNew = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnInsertWorkout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource1)).BeginInit();
@@ -226,7 +227,7 @@
             this.lstViewLiftsList.FullRowSelect = true;
             this.lstViewLiftsList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstViewLiftsList.HideSelection = false;
-            this.lstViewLiftsList.Location = new System.Drawing.Point(964, 77);
+            this.lstViewLiftsList.Location = new System.Drawing.Point(206, 77);
             this.lstViewLiftsList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstViewLiftsList.MultiSelect = false;
             this.lstViewLiftsList.Name = "lstViewLiftsList";
@@ -264,16 +265,6 @@
             this.tblLifttblLiftSetBindingSource.DataMember = "tblLifttblLiftSet";
             this.tblLifttblLiftSetBindingSource.DataSource = this.tblLiftBindingSource;
             // 
-            // tblLiftBindingSource
-            // 
-            this.tblLiftBindingSource.DataMember = "tblLift";
-            this.tblLiftBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
-            // 
-            // dbWorkoutTrackerDataSet
-            // 
-            this.dbWorkoutTrackerDataSet.DataSetName = "dbWorkoutTrackerDataSet";
-            this.dbWorkoutTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // tblLifttblLiftSetBindingSource1
             // 
             this.tblLifttblLiftSetBindingSource1.DataMember = "tblLifttblLiftSet";
@@ -284,7 +275,7 @@
             this.cmbLifts.BackColor = System.Drawing.Color.White;
             this.cmbLifts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLifts.FormattingEnabled = true;
-            this.cmbLifts.Location = new System.Drawing.Point(814, 36);
+            this.cmbLifts.Location = new System.Drawing.Point(19, 77);
             this.cmbLifts.Name = "cmbLifts";
             this.cmbLifts.Size = new System.Drawing.Size(150, 33);
             this.cmbLifts.TabIndex = 10;
@@ -294,7 +285,7 @@
             // btnLiftAdd
             // 
             this.btnLiftAdd.BackColor = System.Drawing.Color.White;
-            this.btnLiftAdd.Location = new System.Drawing.Point(815, 113);
+            this.btnLiftAdd.Location = new System.Drawing.Point(20, 154);
             this.btnLiftAdd.Name = "btnLiftAdd";
             this.btnLiftAdd.Size = new System.Drawing.Size(120, 40);
             this.btnLiftAdd.TabIndex = 11;
@@ -306,7 +297,7 @@
             // btnLiftRename
             // 
             this.btnLiftRename.BackColor = System.Drawing.Color.White;
-            this.btnLiftRename.Location = new System.Drawing.Point(815, 159);
+            this.btnLiftRename.Location = new System.Drawing.Point(20, 200);
             this.btnLiftRename.Name = "btnLiftRename";
             this.btnLiftRename.Size = new System.Drawing.Size(120, 40);
             this.btnLiftRename.TabIndex = 12;
@@ -318,7 +309,7 @@
             // btnLiftRemove
             // 
             this.btnLiftRemove.BackColor = System.Drawing.Color.White;
-            this.btnLiftRemove.Location = new System.Drawing.Point(816, 205);
+            this.btnLiftRemove.Location = new System.Drawing.Point(21, 246);
             this.btnLiftRemove.Name = "btnLiftRemove";
             this.btnLiftRemove.Size = new System.Drawing.Size(120, 40);
             this.btnLiftRemove.TabIndex = 13;
@@ -329,11 +320,93 @@
             // 
             // txtLiftEdit
             // 
-            this.txtLiftEdit.Location = new System.Drawing.Point(815, 77);
+            this.txtLiftEdit.Location = new System.Drawing.Point(20, 118);
             this.txtLiftEdit.Name = "txtLiftEdit";
             this.txtLiftEdit.Size = new System.Drawing.Size(120, 30);
             this.txtLiftEdit.TabIndex = 14;
             this.txtLiftEdit.Visible = false;
+            // 
+            // cbLiftEdit
+            // 
+            this.cbLiftEdit.AutoSize = true;
+            this.cbLiftEdit.Location = new System.Drawing.Point(21, 292);
+            this.cbLiftEdit.Name = "cbLiftEdit";
+            this.cbLiftEdit.Size = new System.Drawing.Size(65, 29);
+            this.cbLiftEdit.TabIndex = 15;
+            this.cbLiftEdit.Text = "edit";
+            this.cbLiftEdit.UseVisualStyleBackColor = true;
+            this.cbLiftEdit.Visible = false;
+            this.cbLiftEdit.CheckedChanged += new System.EventHandler(this.cbLiftEdit_CheckedChanged);
+            // 
+            // dtpAddNew
+            // 
+            this.dtpAddNew.Location = new System.Drawing.Point(237, 77);
+            this.dtpAddNew.Name = "dtpAddNew";
+            this.dtpAddNew.Size = new System.Drawing.Size(200, 30);
+            this.dtpAddNew.TabIndex = 16;
+            this.dtpAddNew.Value = new System.DateTime(2022, 5, 10, 11, 54, 19, 0);
+            this.dtpAddNew.Visible = false;
+            // 
+            // txtWorkoutName
+            // 
+            this.txtWorkoutName.Location = new System.Drawing.Point(21, 77);
+            this.txtWorkoutName.Name = "txtWorkoutName";
+            this.txtWorkoutName.Size = new System.Drawing.Size(210, 30);
+            this.txtWorkoutName.TabIndex = 17;
+            this.txtWorkoutName.Visible = false;
+            // 
+            // btnNewRow
+            // 
+            this.btnNewRow.BackColor = System.Drawing.Color.White;
+            this.btnNewRow.Location = new System.Drawing.Point(443, 113);
+            this.btnNewRow.Name = "btnNewRow";
+            this.btnNewRow.Size = new System.Drawing.Size(90, 40);
+            this.btnNewRow.TabIndex = 18;
+            this.btnNewRow.Text = "Add set";
+            this.btnNewRow.UseVisualStyleBackColor = false;
+            this.btnNewRow.Visible = false;
+            this.btnNewRow.Click += new System.EventHandler(this.btnNewRow_Click);
+            // 
+            // flpAddNew
+            // 
+            this.flpAddNew.Location = new System.Drawing.Point(21, 113);
+            this.flpAddNew.Name = "flpAddNew";
+            this.flpAddNew.Size = new System.Drawing.Size(416, 308);
+            this.flpAddNew.TabIndex = 19;
+            this.flpAddNew.Visible = false;
+            // 
+            // btnInsertWorkout
+            // 
+            this.btnInsertWorkout.BackColor = System.Drawing.Color.White;
+            this.btnInsertWorkout.Location = new System.Drawing.Point(337, 427);
+            this.btnInsertWorkout.Name = "btnInsertWorkout";
+            this.btnInsertWorkout.Size = new System.Drawing.Size(100, 40);
+            this.btnInsertWorkout.TabIndex = 20;
+            this.btnInsertWorkout.Text = "Finish";
+            this.btnInsertWorkout.UseVisualStyleBackColor = false;
+            this.btnInsertWorkout.Visible = false;
+            this.btnInsertWorkout.Click += new System.EventHandler(this.btnInsertWorkout_Click);
+            // 
+            // btnWorkoutDelete
+            // 
+            this.btnWorkoutDelete.BackColor = System.Drawing.Color.White;
+            this.btnWorkoutDelete.Location = new System.Drawing.Point(726, 475);
+            this.btnWorkoutDelete.Name = "btnWorkoutDelete";
+            this.btnWorkoutDelete.Size = new System.Drawing.Size(80, 30);
+            this.btnWorkoutDelete.TabIndex = 21;
+            this.btnWorkoutDelete.Text = "Delete";
+            this.btnWorkoutDelete.UseVisualStyleBackColor = false;
+            this.btnWorkoutDelete.Click += new System.EventHandler(this.btnWorkoutDelete_Click);
+            // 
+            // tblLiftBindingSource
+            // 
+            this.tblLiftBindingSource.DataMember = "tblLift";
+            this.tblLiftBindingSource.DataSource = this.dbWorkoutTrackerDataSet;
+            // 
+            // dbWorkoutTrackerDataSet
+            // 
+            this.dbWorkoutTrackerDataSet.DataSetName = "dbWorkoutTrackerDataSet";
+            this.dbWorkoutTrackerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // tblWorkoutBindingSource
             // 
@@ -379,72 +452,13 @@
             this.tblLiftBindingSource2.DataMember = "tblLift";
             this.tblLiftBindingSource2.DataSource = this.dbWorkoutTrackerDataSet;
             // 
-            // cbLiftEdit
-            // 
-            this.cbLiftEdit.AutoSize = true;
-            this.cbLiftEdit.Location = new System.Drawing.Point(816, 251);
-            this.cbLiftEdit.Name = "cbLiftEdit";
-            this.cbLiftEdit.Size = new System.Drawing.Size(65, 29);
-            this.cbLiftEdit.TabIndex = 15;
-            this.cbLiftEdit.Text = "edit";
-            this.cbLiftEdit.UseVisualStyleBackColor = true;
-            this.cbLiftEdit.Visible = false;
-            this.cbLiftEdit.CheckedChanged += new System.EventHandler(this.cbLiftEdit_CheckedChanged);
-            // 
-            // dtpAddNew
-            // 
-            this.dtpAddNew.Location = new System.Drawing.Point(781, 535);
-            this.dtpAddNew.Name = "dtpAddNew";
-            this.dtpAddNew.Size = new System.Drawing.Size(200, 30);
-            this.dtpAddNew.TabIndex = 16;
-            this.dtpAddNew.Value = new System.DateTime(2022, 5, 10, 11, 54, 19, 0);
-            this.dtpAddNew.Visible = false;
-            // 
-            // txtWorkoutName
-            // 
-            this.txtWorkoutName.Location = new System.Drawing.Point(565, 535);
-            this.txtWorkoutName.Name = "txtWorkoutName";
-            this.txtWorkoutName.Size = new System.Drawing.Size(210, 30);
-            this.txtWorkoutName.TabIndex = 17;
-            this.txtWorkoutName.Visible = false;
-            // 
-            // btnNewRow
-            // 
-            this.btnNewRow.BackColor = System.Drawing.Color.White;
-            this.btnNewRow.Location = new System.Drawing.Point(987, 571);
-            this.btnNewRow.Name = "btnNewRow";
-            this.btnNewRow.Size = new System.Drawing.Size(90, 40);
-            this.btnNewRow.TabIndex = 18;
-            this.btnNewRow.Text = "Add set";
-            this.btnNewRow.UseVisualStyleBackColor = false;
-            this.btnNewRow.Visible = false;
-            this.btnNewRow.Click += new System.EventHandler(this.btnNewRow_Click);
-            // 
-            // flpAddNew
-            // 
-            this.flpAddNew.Location = new System.Drawing.Point(565, 571);
-            this.flpAddNew.Name = "flpAddNew";
-            this.flpAddNew.Size = new System.Drawing.Size(416, 150);
-            this.flpAddNew.TabIndex = 19;
-            // 
-            // btnInsertWorkout
-            // 
-            this.btnInsertWorkout.BackColor = System.Drawing.Color.White;
-            this.btnInsertWorkout.Location = new System.Drawing.Point(881, 727);
-            this.btnInsertWorkout.Name = "btnInsertWorkout";
-            this.btnInsertWorkout.Size = new System.Drawing.Size(100, 40);
-            this.btnInsertWorkout.TabIndex = 20;
-            this.btnInsertWorkout.Text = "Finish";
-            this.btnInsertWorkout.UseVisualStyleBackColor = false;
-            this.btnInsertWorkout.Visible = false;
-            this.btnInsertWorkout.Click += new System.EventHandler(this.btnInsertWorkout_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1852, 861);
+            this.ClientSize = new System.Drawing.Size(830, 544);
+            this.Controls.Add(this.btnWorkoutDelete);
             this.Controls.Add(this.btnInsertWorkout);
             this.Controls.Add(this.flpAddNew);
             this.Controls.Add(this.btnNewRow);
@@ -471,9 +485,9 @@
             this.Text = "WorkoutTracker";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbWorkoutTrackerDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tblLifttblLiftSetBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblWorkoutBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblLiftBindingSource1)).EndInit();
@@ -528,6 +542,7 @@
         private System.Windows.Forms.Button btnNewRow;
         private System.Windows.Forms.FlowLayoutPanel flpAddNew;
         private System.Windows.Forms.Button btnInsertWorkout;
+        private System.Windows.Forms.Button btnWorkoutDelete;
     }
 }
 
