@@ -351,13 +351,13 @@ namespace WorkoutTracker
             lstViewLiftSets.Visible = true;
             lblWorkoutName.Visible = true;
             lblWorkoutDate.Visible = true;
-            btnWorkoutDelete.Visible = true;
 
             txtWorkoutName.Visible = false;
             dtpAddNew.Visible = false;
             flpAddNew.Visible = false;
             btnNewRow.Visible = false;
             btnInsertWorkout.Visible = false;
+            lblAddWorkout.Visible = false;
 
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
@@ -389,6 +389,7 @@ namespace WorkoutTracker
             flpAddNew.Visible = true;
             btnNewRow.Visible = true;
             btnInsertWorkout.Visible = true;
+            lblAddWorkout.Visible = true;
 
             lstViewLiftsList.Visible = false;
             cmbLifts.Visible = false;
@@ -419,6 +420,7 @@ namespace WorkoutTracker
             flpAddNew.Visible = false;
             btnNewRow.Visible = false;
             btnInsertWorkout.Visible = false;
+            lblAddWorkout.Visible = false;
 
             cmbLiftsFill();
             lstViewLiftsList.Visible = true;
@@ -434,6 +436,11 @@ namespace WorkoutTracker
                 lblWorkoutDate.Text = lstViewWorkouts.SelectedItems[0].SubItems[1].Text;
                 int workoutID = Convert.ToInt32(lstViewWorkouts.SelectedItems[0].SubItems[2].Text);
                 displayLiftSets(workoutID);
+                btnWorkoutDelete.Visible = true;
+            }
+            else
+            {
+                btnWorkoutDelete.Visible = false;
             }
         }
 
@@ -667,9 +674,10 @@ namespace WorkoutTracker
                 try
                 {
                     //sql first deletes from tblLiftSets and then from tblWorkout and then the view is reset
-                    this.tblLiftSetTableAdapter.DeleteQueryLiftID(workoutID);
+                    this.tblLiftSetTableAdapter.DeleteQueryWorkoutID(workoutID);
                     this.tblWorkoutTableAdapter.DeleteQuery(workoutID);
                     displayWorkouts();
+                    btnWorkoutDelete.Visible = false;
                 }
                 catch (System.Exception ex)
                 {
@@ -677,6 +685,11 @@ namespace WorkoutTracker
                     System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void lblAddWorkout_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
